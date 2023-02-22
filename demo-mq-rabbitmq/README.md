@@ -44,10 +44,10 @@ rabbitmqctl version
 
 `docker restart rabbitmq`
 
-8. 进入管理端（端口15672）
+8. 进入管理页面（端口15672）
 
 账号密码：guest
-
+新建exchange时，type会出现`x-delayedmessage`这个选项
 ## pom.xml
 
 ```xml
