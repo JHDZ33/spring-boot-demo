@@ -49,6 +49,15 @@ rabbitmqctl version
 账号密码：guest
 新建exchange时，type会出现`x-delayedmessage`这个选项
 
+## 常见报错类型
+
+###死信队列
+
+`inequivalent arg 'x-dead-letter-exchange' for queue 'queue.direct.2' in vhost '/': received the value 'exchange.death' of type 'longstr'`
+这是因为之前我们已经声明过不加死信设置的队列了，声明 queue 时试图设定一个 x-dead-letter-exchange 参数，当前服务器上该 queue 的该参数为 none，服务器不允许所以报错。
+
+此时有两种解决方法：一是在服务器上将之前的 queue 删除，加上死信参数，再次声明队列；二是通过 policy 来设置这个参数。
+
 ## 参考
 
 1. SpringQP 官方文档：https://docs.spring.io/spring-amqp/docs/2.1.0.RELEASE/reference/html/

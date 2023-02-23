@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,7 +39,7 @@ public class RabbitMqConfig {
     // 个人感觉万一后续业务多了，所有的direct的queue都绑定到一起感觉怪怪的，不如按照业务新建exchange分开绑定
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(RabbitConsts.DIRECT_MODE_EXCHANGE);
+        return new DirectExchange(RabbitConsts.DIRECT_MODE_EXCHANGE,true, false);// 其实默认就是durable：true    autoDelete：false
     }
     /**
      * 直接模式队列1
@@ -47,9 +48,33 @@ public class RabbitMqConfig {
     public Queue directQueue1() {
         return new Queue(RabbitConsts.DIRECT_MODE_QUEUE1);
     }
+
+    @Bean
+    public Queue deathDirectQueue2() {
+        return new Queue(RabbitConsts.DEATH_DIRECT_MODE_QUEUE2);
+    }
+
+    /**
+     * 也可以使用CustomExchange创建交换机，直接DirectExchange也行，此处做个示例
+     * @return
+     */
+    @Bean
+    public CustomExchange deathExchange() {
+        return new CustomExchange(RabbitConsts.DEAD_LETTER_EXCHANGE, "direct", true, false);
+    }
+
+    /**
+     * 直接模式队列2但配置死信队列
+     * @return
+     */
     @Bean
     public Queue directQueue2() {
-        return new Queue(RabbitConsts.DIRECT_MODE_QUEUE2);
+        Map<String, Object> args = new HashMap<>(2);
+//       x-dead-letter-exchange    这里声明当前队列绑定的死信交换机
+        args.put("x-dead-letter-exchange", RabbitConsts.DEAD_LETTER_EXCHANGE);
+//       x-dead-letter-routing-key  这里声明当前队列的死信路由key
+        args.put("x-dead-letter-routing-key", RabbitConsts.DEATH_LETTER_KEY2);
+        return new Queue(RabbitConsts.DIRECT_MODE_QUEUE2, true, false, false, args);
     }
 
     @Bean
@@ -60,6 +85,14 @@ public class RabbitMqConfig {
     public Binding directBinding2(Queue directQueue2, DirectExchange directExchange) {
         return BindingBuilder.bind(directQueue2).to(directExchange).with(RabbitConsts.DIRECT_MODE_KEY2);
     }
+
+    @Bean
+    public Binding deathDirect1Binding(Queue deathDirectQueue2, CustomExchange deathExchange) {
+        return BindingBuilder.bind(deathDirectQueue2).to(deathExchange).with(RabbitConsts.DEATH_LETTER_KEY2).noargs();
+    }
+
+
+
 
     /**
      * 队列2
