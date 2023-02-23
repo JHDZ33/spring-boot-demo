@@ -10,10 +10,25 @@ package com.xkcoding.mq.rabbitmq.constants;
  */
 public interface RabbitConsts {
     /**
-     * 直接模式1
+     * 直接模式1queue
      */
-    String DIRECT_MODE_QUEUE_ONE = "queue.direct.1";
-
+    String DIRECT_MODE_QUEUE1 = "queue.direct.1";
+    /**
+     * 直接模式2queue
+     */
+    String DIRECT_MODE_QUEUE2 = "queue.direct.2";
+    /**
+     * 直接模式1key
+     */
+    String DIRECT_MODE_KEY1 = "key.direct.1";
+    /**
+     * 直接模式1key
+     */
+    String DIRECT_MODE_KEY2 = "key.direct.2";
+    /**
+     * 直接模式exchange
+     */
+    String DIRECT_MODE_EXCHANGE = "exchange.direct";
     /**
      * 队列2
      */

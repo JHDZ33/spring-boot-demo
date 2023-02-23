@@ -34,12 +34,31 @@ public class RabbitMqConfig {
         return rabbitTemplate;
     }
 
+    // 这个其实无所谓，就算没有这个exchange，direct模式的queue默认也会绑定到名字为空字符串的一个交换机。
+    // 个人感觉万一后续业务多了，所有的direct的queue都绑定到一起感觉怪怪的，不如按照业务新建exchange分开绑定
+    @Bean
+    public DirectExchange directExchange() {
+        return new DirectExchange(RabbitConsts.DIRECT_MODE_EXCHANGE);
+    }
     /**
      * 直接模式队列1
      */
     @Bean
-    public Queue directOneQueue() {
-        return new Queue(RabbitConsts.DIRECT_MODE_QUEUE_ONE);
+    public Queue directQueue1() {
+        return new Queue(RabbitConsts.DIRECT_MODE_QUEUE1);
+    }
+    @Bean
+    public Queue directQueue2() {
+        return new Queue(RabbitConsts.DIRECT_MODE_QUEUE2);
+    }
+
+    @Bean
+    public Binding directBinding1(Queue directQueue1, DirectExchange directExchange) {
+        return BindingBuilder.bind(directQueue1).to(directExchange).with(RabbitConsts.DIRECT_MODE_KEY1);
+    }
+    @Bean
+    public Binding directBinding2(Queue directQueue2, DirectExchange directExchange) {
+        return BindingBuilder.bind(directQueue2).to(directExchange).with(RabbitConsts.DIRECT_MODE_KEY2);
     }
 
     /**
@@ -60,6 +79,7 @@ public class RabbitMqConfig {
 
     /**
      * 分列模式队列
+     * 任何发送到Fanout Exchange的消息都会被转发到与该Exchange绑定(Binding)的所有Queue上。
      */
     @Bean
     public FanoutExchange fanoutExchange() {
@@ -69,12 +89,12 @@ public class RabbitMqConfig {
     /**
      * 分列模式绑定队列1
      *
-     * @param directOneQueue 绑定队列1
+     * @param directQueue1 绑定队列1
      * @param fanoutExchange 分列模式交换器
      */
     @Bean
-    public Binding fanoutBinding1(Queue directOneQueue, FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(directOneQueue).to(fanoutExchange);
+    public Binding fanoutBinding1(Queue directQueue1, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(directQueue1).to(fanoutExchange);
     }
 
     /**

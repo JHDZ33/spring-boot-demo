@@ -20,8 +20,13 @@ public class SpringBootDemoMqRabbitmqApplicationTests {
      * 测试直接模式发送
      */
     @Test
-    public void sendDirect() {
-        rabbitTemplate.convertAndSend(RabbitConsts.DIRECT_MODE_QUEUE_ONE, new MessageStruct("direct message"));
+    public void sendDirect1() {
+        // rabbitTemplate.convertAndSend(RabbitConsts.DIRECT_MODE_QUEUE1, new MessageStruct("direct message")); // 直接和queue绑定
+        rabbitTemplate.convertAndSend(RabbitConsts.DIRECT_MODE_EXCHANGE, RabbitConsts.DIRECT_MODE_KEY1, new MessageStruct("direct message1"));
+    }
+    @Test
+    public void sendDirect2() {
+        rabbitTemplate.convertAndSend(RabbitConsts.DIRECT_MODE_EXCHANGE,RabbitConsts.DIRECT_MODE_KEY2, new MessageStruct("direct message2"));
     }
 
     /**

@@ -6,8 +6,7 @@ import com.xkcoding.mq.rabbitmq.constants.RabbitConsts;
 import com.xkcoding.mq.rabbitmq.message.MessageStruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,9 +20,9 @@ import java.io.IOException;
  * @date Created in 2019-01-04 15:42
  */
 @Slf4j
-@RabbitListener(queues = RabbitConsts.DIRECT_MODE_QUEUE_ONE)
+@RabbitListener(queues = RabbitConsts.DIRECT_MODE_QUEUE1)
 @Component
-public class DirectQueueOneHandler {
+public class DirectQueueHandler1 {
 
     /**
      * 如果 spring.rabbitmq.listener.direct.acknowledge-mode: auto，则可以用这个方式，会自动ack
