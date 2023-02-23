@@ -20,6 +20,21 @@ import java.io.IOException;
  * @date Created in 2019-01-04 15:42
  */
 @Slf4j
+// 消费方这边也能完全配置一遍，算是做一个双重保险吧；下面注释掉的例子参数是读取配置文件中的参数，和本demo通过常量池不一样。
+//@RabbitListener(
+//    containerFactory="rabbitListenerContainerFactory",
+//    bindings = @QueueBinding(
+//        value = @Queue(	value = "${mqlistener.queue.name}",
+//            durable = "${mqlistener.queue.durable}",
+//            arguments = {@Argument(name = "x-dead-letter-exchange",value = "${mqlistener.death.exchange.name}"),
+//                @Argument(name = "x-dead-letter-routing-key",value = "${mqlistener.death.arrive.key}")}),
+//        exchange = @Exchange(value = "${mqlistener.exchange.name}",
+//            durable = "${mqlistener.exchange.durable}",
+//            type = "${mqlistener.exchange.type}",
+//            ignoreDeclarationExceptions = "${mqlistener.exchange.ignoreDeclarationExceptions}"),
+//        key = "${mqlistener.key}"
+//    )
+//)
 @RabbitListener(queues = RabbitConsts.DIRECT_MODE_QUEUE1)
 @Component
 public class DirectQueueHandler1 {

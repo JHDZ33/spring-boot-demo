@@ -10,19 +10,19 @@ package com.xkcoding.mq.rabbitmq.constants;
  */
 public interface RabbitConsts {
     /**
-     * 直接模式1queue
+     * 直接模式queue1
      */
     String DIRECT_MODE_QUEUE1 = "queue.direct.1";
     /**
-     * 直接模式2queue
+     * 直接模式queue2
      */
     String DIRECT_MODE_QUEUE2 = "queue.direct.2";
     /**
-     * 直接模式1key
+     * 直接模式key1
      */
     String DIRECT_MODE_KEY1 = "key.direct.1";
     /**
-     * 直接模式1key
+     * 直接模式key2
      */
     String DIRECT_MODE_KEY2 = "key.direct.2";
     /**
