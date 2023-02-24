@@ -46,6 +46,8 @@ public class DirectQueueHandler2 {
         } catch (Exception e) {
             try {
                 // 一般业务处理，消费者出现异常情况，压会队列再执行也会出错，所以应该返回消息到已配置好的死信队列中
+                //  basic.reject方法拒绝deliveryTag对应的消息，第二个参数是否requeue，true则重新入队列，否则丢弃或者进入死信队列。
+                //  basic.nack方法为不确认deliveryTag对应的消息，第二个参数是否应用于多消息，第三个参数是否requeue，与basic.reject区别就是同时支持多个消息，可以nack该消费者先前接收未ack的所有消息。nack后的消息也会被自己消费到。
                 channel.basicNack(deliveryTag, false, false);
             } catch (IOException e1) {
                 e1.printStackTrace();

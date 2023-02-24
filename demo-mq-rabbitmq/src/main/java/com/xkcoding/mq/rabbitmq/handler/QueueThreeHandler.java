@@ -33,11 +33,11 @@ public class QueueThreeHandler {
             log.info("队列3，手动ACK，接收消息：{}", JSONUtil.toJsonStr(messageStruct));
             // 通知 MQ 消息已被成功消费,可以ACK了
             channel.basicAck(deliveryTag, false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             try {
                 // 处理失败,重新压入MQ
                 channel.basicRecover();
-            } catch (IOException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
