@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -65,6 +66,7 @@ public class RabbitMqConfig {
 
     /**
      * 直接模式队列2但配置死信队列
+     * 注意如果添加死信队列前，该queue已存在，则需要先把这个queue删除之后重新创建
      * @return
      */
     @Bean
@@ -86,9 +88,10 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(directQueue2).to(directExchange).with(RabbitConsts.DIRECT_MODE_KEY2);
     }
 
+    // 也可以使用@Qualifier说明，这样参数名就可以随意取了
     @Bean
-    public Binding deathDirect1Binding(Queue deathDirectQueue2, CustomExchange deathExchange) {
-        return BindingBuilder.bind(deathDirectQueue2).to(deathExchange).with(RabbitConsts.DEATH_LETTER_KEY2).noargs();
+    public Binding deathDirect1Binding(Queue deathDirectQueue2, @Qualifier("deathExchange") CustomExchange customExchange) {
+        return BindingBuilder.bind(deathDirectQueue2).to(customExchange).with(RabbitConsts.DEATH_LETTER_KEY2).noargs();
     }
 
 

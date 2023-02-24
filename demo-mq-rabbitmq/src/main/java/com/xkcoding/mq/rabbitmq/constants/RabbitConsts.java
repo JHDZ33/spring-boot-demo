@@ -30,7 +30,7 @@ public interface RabbitConsts {
      */
     String DIRECT_MODE_EXCHANGE = "exchange.direct";
     /**
-     * 直接模式queue1对应的死信队列
+     * 直接模式queue2对应的死信队列
      */
     String DEATH_DIRECT_MODE_QUEUE2 = "queue.death.2";
     /**
@@ -38,7 +38,7 @@ public interface RabbitConsts {
      */
     String DEAD_LETTER_EXCHANGE = "exchange.death";
     /**
-     * 死信队列key1 对应DIRECT_MODE_QUEUE2
+     * 死信队列key2 对应DIRECT_MODE_QUEUE2
      */
     String DEATH_LETTER_KEY2 = "key.dead.2";
     /**

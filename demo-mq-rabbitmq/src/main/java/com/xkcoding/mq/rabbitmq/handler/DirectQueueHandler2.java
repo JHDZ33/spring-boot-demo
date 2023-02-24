@@ -39,12 +39,14 @@ public class DirectQueueHandler2 {
         final long deliveryTag = message.getMessageProperties().getDeliveryTag();
         try {
             log.info("直接队列2，手动ACK，接收消息：{}", JSONUtil.toJsonStr(messageStruct));
+            // 故意出错，测试是否进入死信队列中进行处理
+            int i = 1 / 0;
             // 通知 MQ 消息已被成功消费,可以ACK了
             channel.basicAck(deliveryTag, false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             try {
-                // 处理失败,重新压入MQ
-                channel.basicRecover();
+                // 一般业务处理，消费者出现异常情况，压会队列再执行也会出错，所以应该返回消息到已配置好的死信队列中
+                channel.basicNack(deliveryTag, false, false);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

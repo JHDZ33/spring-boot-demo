@@ -13,5 +13,4 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
-      direct:
-        acknowledge-mode: manual
+        default-requeue-rejected: false #消息被拒后（即未消费），重新（true）放入队列
