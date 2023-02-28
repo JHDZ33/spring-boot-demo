@@ -31,6 +31,7 @@ public class SpringBootDemoMqRabbitmqApplicationTests {
 
     /**
      * 测试分列模式发送
+     * 任何发送到Fanout Exchange的消息都会被转发到与该Exchange绑定(Binding)的所有 Queue上。
      */
     @Test
     public void sendFanout() {

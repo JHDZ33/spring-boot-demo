@@ -88,7 +88,7 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(directQueue2).to(directExchange).with(RabbitConsts.DIRECT_MODE_KEY2);
     }
 
-    // 也可以使用@Qualifier说明，这样参数名就可以随意取了
+    // 在Bean的定义中，参数名就是beanName，也可以使用@Qualifier指定要用的beanName，这样参数名就可以随意取了
     @Bean
     public Binding deathDirect1Binding(Queue deathDirectQueue2, @Qualifier("deathExchange") CustomExchange customExchange) {
         return BindingBuilder.bind(deathDirectQueue2).to(customExchange).with(RabbitConsts.DEATH_LETTER_KEY2).noargs();
