@@ -10,11 +10,21 @@
     <if test=" age != null ">
         and age > #{age}
     </if>
-    <if test=" name != null ">
+    
+    <if test=" name != null and name !=''">
         and name like concat(#{name},'%')
     </if>
 </select>
 ```
+
+```xml
+	<!-- name为List时判空 -->
+	<if test=" name != null and name.size() > 0">
+     
+    </if>
+```
+
+
 
 ##### 2. choose
 
@@ -112,9 +122,13 @@
   ```
 
 - item 属性：变量名，值为遍历的每一个值（可以是对象或基础类型），如果是对象那么依旧是 OGNL 表达式取值即可，例如 #{item.id} 、#{ user.name } 等
+
 - index 属性：索引的属性名，在遍历列表或数组时为当前索引值，当迭代的对象时 Map 类型时，该值为 Map 的键值（key）
+
 - open 属性：循环内容开头拼接的字符串，可以是空字符串
+
 - close 属性：循环内容结尾拼接的字符串，可以是空字符串
+
 - separator 属性：每次循环的分隔符
 
 **注意**：使用 foreach 标签时，需要对传入的 collection  参数（List/Map/Set等）进行为空性判断，否则动态 SQL 会出现语法异常，例如你的查询语句可能是 select  * from  user where ids in () ，导致以上语法异常就是传入参数为空，解决方案可以用 if 标签或 choose  标签进行为空性判断处理，或者直接在 Java 代码中进行逻辑处理即可，例如判断为空则不执行 SQL 。
@@ -230,9 +244,20 @@
 </insert>
 ```
 
+##### 8. resulitMap
 
-
-
+```xml
+<resultMap type="com.zyiot.road.modules.base.entity.TerminalEntity" id="terminalMap">
+    <result property="id" column="ID"/>
+    <result property="tenantId" column="TENANT_ID"/>
+    <result property="deptId" column="DEPT_ID"/>
+    <result property="name" column="NAME"/>
+    <result property="identifier" column="IDENTIFIER"/>
+    <result property="simCard" column="SIM_CARD"/>
+    <result property="code" column="CODE"/>
+    <result property="model" column="MODEL"/>
+</resultMap>
+```
 
 
 
