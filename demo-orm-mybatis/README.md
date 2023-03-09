@@ -2,6 +2,10 @@
 
 > 此 demo 演示了 Spring Boot 如何与原生的 mybatis 整合，使用了 mybatis 官方提供的脚手架 `mybatis-spring-boot-starter `可以很容易的和 Spring Boot 整合。
 
+>以后一些技术的测试类也放到该demo下
+>1. Reflect
+
+
 ## pom.xml
 
 ```xml
