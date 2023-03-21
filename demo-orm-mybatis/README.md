@@ -4,6 +4,7 @@
 
 >以后一些技术的测试类也放到该demo下
 >1. Reflect
+>2. Thread
 
 
 ## pom.xml
