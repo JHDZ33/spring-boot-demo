@@ -6,8 +6,6 @@ import org.junit.Test;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MethodReflect {
 
@@ -31,6 +29,13 @@ public class MethodReflect {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+    public static Object methodFactory(String methodName, Class<?>[] args, List param) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        FunctionUtils functionUtils = new FunctionUtils();
+        Method method = functionUtils.getClass().getMethod(methodName, args);
+        Object invoke = method.invoke(methodName, param.toArray());
+        System.out.println("调用的方法:" + methodName);
+        return invoke;
     }
 
     @Test
@@ -72,15 +77,7 @@ public class MethodReflect {
         return resultMap.toString();
     }
 
-    public static Object methodFactory(String methodName, Class<?>[] args, List param) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        FunctionUtils functionUtils = new FunctionUtils();
-        Method method = functionUtils.getClass().getMethod(methodName, args);
-        Object invoke = method.invoke(methodName, param.toArray());
-        System.out.println("调用的方法:" + methodName);
-        return invoke;
-    }
-
-    public static String[] split(String str) {
+    private String[] split(String str) {
         List<String> parts = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         int depth = 0; // 记录括号的深度
@@ -104,7 +101,7 @@ public class MethodReflect {
 
     @Test
     public void test1() {
-        String str = "abc, 123 , now('yyyy-MM-dd HH:mm:ss', 'foo,bar'), dateToTimestamp('yyyy-MM-dd HH:mm:ss', now('yyyy-MM-dd HH:mm:ss'))";
+        String str = "abc, 123, now('yyyy-MM-dd HH:mm:ss', 'foo,bar'), dateToTimestamp('yyyy-MM-dd HH:mm:ss', now('yyyy-MM-dd HH:mm:ss'))";
         String[] arr = split(str);
         for (String s : arr) {
             System.out.println(s);
