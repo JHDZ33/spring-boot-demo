@@ -7,6 +7,8 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.fastjson2.JSON;
 import com.jhdz.excel.EasyExcelApplication;
+import com.jhdz.excel.entity.IndexOrNameData;
+import com.jhdz.excel.listener.IndexOrNameDataListener;
 import com.jhdz.excel.util.TestFileUtil;
 import com.jhdz.excel.entity.DemoData;
 import com.jhdz.excel.service.DemoService;
@@ -86,5 +88,10 @@ public class ExcelReadTest {
         }).sheet().doRead();
     }
 
+    @Test
+    public void indexOrNameRead() {
+        String fileName = TestFileUtil.getPath() + "demo" + File.separator + "demo.xlsx";
+        EasyExcel.read(fileName, IndexOrNameData.class, new IndexOrNameDataListener()).sheet().doRead();
+    }
 
 }
