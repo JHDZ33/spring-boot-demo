@@ -1,8 +1,6 @@
 package com.xkcoding.orm.mybatis.list;
 
-import cn.hutool.core.lang.copier.Copier;
 import com.xkcoding.orm.mybatis.entity.DataEntity;
-import com.xkcoding.orm.mybatis.entity.User;
 import org.junit.Test;
 
 import java.util.*;
@@ -40,6 +38,21 @@ public class StreamTest {
         }).map(DataEntity::getId).collect(Collectors.toList());
         System.out.println("**2** " + collect2);
         System.out.println("**21** " + collect21);
+    }
+
+    /**
+     * flatMap
+     * 总而言之，flatMap 操作可以将多个 Stream 扁平化为一个 Stream，从而方便集合数据的处理。
+     */
+    @Test
+    public void flatMapTest() {
+        // 想把字符串数组中出现的所有字符打印，不能重复
+        String[] strings= {"up!up", "end", "end", "Elden", "Ring"};
+        // 如果使用map，字符串经过spilt后所有的所有字符各自成为一个Stream，然后成为Stream<Stream<String>>
+        Arrays.stream(strings).map(s -> s.split("")).map(Arrays::stream).distinct().forEach(stringStream -> stringStream.forEach(System.out::println));
+
+        // 使用flatMap,会将所有经过spilt的字符合并为一个stream，然后进行总处理
+        Arrays.stream(strings).map(s -> s.split("")).flatMap(Arrays::stream).distinct().forEach(System.out::println);
     }
 
     /**
