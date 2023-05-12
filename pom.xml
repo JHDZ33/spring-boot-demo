@@ -71,6 +71,7 @@
     <module>demo-flyway</module>
     <module>demo-pay</module>
     <module>demo-easy-excel</module>
+    <module>demo-http-call</module>
   </modules>
   <packaging>pom</packaging>
 

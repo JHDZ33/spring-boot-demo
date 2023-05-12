@@ -180,7 +180,7 @@ public class StreamTest {
     @Test
     public void sortTest() {
         List<DataEntity> dataList = getDataList(10);
-        List<String> collect = dataList.stream().map(DataEntity::getName).limit(5).sorted((p1, p2) -> p2.compareTo(p1)).collect(Collectors.toList());
+        List<String> collect = dataList.stream().map(DataEntity::getName).limit(5).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         System.out.println(collect.toString());
     }
 
