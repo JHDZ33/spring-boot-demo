@@ -5,6 +5,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * jdk 自带的网络类
+ */
 public class HttpURLConnectionUtil {
 
     /**
