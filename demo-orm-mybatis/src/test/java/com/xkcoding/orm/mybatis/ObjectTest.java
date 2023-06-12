@@ -5,6 +5,15 @@ import org.junit.Test;
 public class ObjectTest {
 
     @Test
+    public void subTest() {
+        String s = "/oss/20220930/f695s2851a5115f6156.jpeg";
+        String substring = s.substring(s.lastIndexOf("/") + 1);
+        System.out.println(
+            substring
+        );
+    }
+
+    @Test
     public void stringTest(){
         String a = new String("aa");
         String b = new String("aa");
