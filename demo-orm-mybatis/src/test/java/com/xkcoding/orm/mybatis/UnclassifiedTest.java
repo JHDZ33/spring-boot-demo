@@ -1,9 +1,11 @@
 package com.xkcoding.orm.mybatis;
 
+import com.xkcoding.orm.mybatis.entity.DataEntity;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.*;
 
 public class UnclassifiedTest {
 
@@ -22,5 +24,51 @@ public class UnclassifiedTest {
          */
         DecimalFormat df2 = new DecimalFormat("0000.000");
         System.out.println(df2.format(num));
+    }
+
+    @Test
+    public void someTest() {
+        Map<String, List<Map<String, Integer>>> hashMap = new HashMap<>();
+        /**
+         * {
+         *     "roadSectionId1": {
+         *         "时间段1"：count2,
+         *         "时间段2"：count2,
+         *         ...
+         *     },
+         *     "roadSectionId2": {
+         *          *         "时间段1"：count2,
+         *          *         "时间段2"：count2,
+         *          *         ...
+         *          *     }
+         * }
+         */
+    }
+
+
+    /**
+     *
+     * @param count
+     * @return
+     */
+    private List<DataEntity> getDataList(int count) {
+        List<DataEntity> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            DataEntity dataEntity = new DataEntity();
+            dataEntity.setId(i);
+            dataEntity.setName("name" + i);
+            dataEntity.setNow(new Date());
+            list.add(dataEntity);
+        }
+        return list;
+    }
+
+    @Test
+    public void getIndex() {
+        // 生成个长度为10的对象List
+        List<DataEntity> dataList = getDataList(10);
+        for (DataEntity d:dataList) {
+            System.out.println(dataList.indexOf(d));
+        }
     }
 }
