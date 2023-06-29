@@ -25,9 +25,11 @@ import java.util.stream.Collectors;
  */
 public class ExcelWriteTest {
 
+    /**
+     * 这个是关于如何传给前段表格资源供下载的示例。
+     */
     @Test
     public void simpleWrite() {
-
         // 实际业务中一般是这里直接返回给前端文件，此处httpServletResponse就是返回给前端的响应。
         HttpServletResponse httpServletResponse = null;
         ServletOutputStream outputStream = null;
@@ -101,6 +103,27 @@ public class ExcelWriteTest {
     }
 
 
+    @Test
+    public void converterWrite() {
+        try {
+            List<DemoData> dataList = data();
+            // 只导出name和address这两列
+            Set<String> includeColumnFiledNames = new HashSet<String>();
+            includeColumnFiledNames.add("name");
+            includeColumnFiledNames.add("address");
+            includeColumnFiledNames.add("date");
+            includeColumnFiledNames.add("doubleNum");
+            EasyExcel.write("converterWrite.xlsx", DemoData.class)
+                .includeColumnFieldNames(includeColumnFiledNames)
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()) // 自动对齐
+                .sheet("测试1")
+                .doWrite(dataList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     // 模拟数据库分页查询
     private List<DemoData> data() {
         List<DemoData> list = ListUtils.newArrayList();
@@ -111,7 +134,7 @@ public class ExcelWriteTest {
             data.setName("名字" + i);
             data.setAddress("地址" + i);
             data.setDate(new Date());
-            data.setDoubleNum(0.56);
+            data.setDoubleNum(0.560);
             list.add(data);
         }
         return list;

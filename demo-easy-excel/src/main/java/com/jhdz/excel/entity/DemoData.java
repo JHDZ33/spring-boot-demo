@@ -3,6 +3,8 @@ package com.jhdz.excel.entity;
 
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.alibaba.excel.annotation.format.NumberFormat;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.EqualsAndHashCode;
@@ -29,9 +31,12 @@ public class DemoData {
     @ExcelProperty(value = {"个人信息", "地址"}, index = 1)
     private String address;
 
-
+    @DateTimeFormat("yyyy年MM月dd日HH时mm分ss秒")
+    @ExcelProperty("日期标题")
     private Date date;
 
+    @NumberFormat("#.##%")
+    @ExcelProperty(value = "数字标题")
     private Double doubleNum;
 
 
