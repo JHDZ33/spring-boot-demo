@@ -39,9 +39,12 @@ public class DemoServiceImpl extends ServiceImpl<DemoDao, DemoData> implements D
         List<DemoData> list = ListUtils.newArrayList();
         for (int i = 0; i < 10; i++) {
             DemoData data = new DemoData();
-            data.setString("字符串" + i);
+            data.setId(i);
+            data.setUid(i + "");
+            data.setName("名字" + i);
+            data.setAddress("地址" + i);
             data.setDate(new Date());
-            data.setDoubleData(0.56);
+            data.setDoubleNum(0.56);
             list.add(data);
         }
         return list;
