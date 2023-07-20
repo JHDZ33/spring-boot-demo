@@ -6,9 +6,10 @@ import com.xkcoding.orm.mybatis.entity.DataEntity;
 import com.xkcoding.orm.mybatis.entity.DataResultEntity;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static com.xkcoding.orm.mybatis.utils.getDataList;
+import static com.xkcoding.orm.mybatis.utils.getDataResultList;
 
 public class fastJsonTest {
 
@@ -36,27 +37,5 @@ public class fastJsonTest {
         System.out.println(dataEntity.toString());
     }
 
-    private List<DataResultEntity> getDataResultList(int count) {
-        List<DataResultEntity> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            DataResultEntity dataResultEntity = new DataResultEntity();
-            dataResultEntity.setId(i);
-            dataResultEntity.setName("name" + i);
-            dataResultEntity.setNow(new Date());
-            dataResultEntity.setDataEntityList(getDataList(2));
-            list.add(dataResultEntity);
-        }
-        return list;
-    }
-    private List<DataEntity> getDataList(int count) {
-        List<DataEntity> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            DataEntity dataEntity = new DataEntity();
-            dataEntity.setId(i);
-            dataEntity.setName("name" + i);
-            dataEntity.setNow(new Date());
-            list.add(dataEntity);
-        }
-        return list;
-    }
+
 }
