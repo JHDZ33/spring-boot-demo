@@ -15,16 +15,15 @@ public class FileTest {
      */
     @Test
     public void FileOutputStreamTest() {
-        try{
-            FileOutputStream fileOutputStream = new FileOutputStream("D://桌面//fileOutputTest1.txt");
+        // 表示不删除原文件，而是在该文件后继续写
+        try (FileOutputStream fileOutputStream = new FileOutputStream("D://桌面//fileOutputTest1.txt", true)) {
             List<DataEntity> data = getDataList(10);
 
             for (DataEntity d: data) {
                 fileOutputStream.write(d.toString().getBytes());
                 fileOutputStream.write(System.lineSeparator().getBytes());
             }
-            fileOutputStream.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -41,7 +40,7 @@ public class FileTest {
             }
             System.out.println(stringBuffer);
             fileInputStream.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -66,7 +65,7 @@ public class FileTest {
                 fileWriter.write(System.lineSeparator());
             }
             fileWriter.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -82,7 +81,7 @@ public class FileTest {
             }
             System.out.println(stringBuffer);
             fileReader.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
