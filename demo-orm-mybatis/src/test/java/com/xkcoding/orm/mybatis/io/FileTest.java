@@ -18,7 +18,6 @@ public class FileTest {
         // 表示不删除原文件，而是在该文件后继续写
         try (FileOutputStream fileOutputStream = new FileOutputStream("D://桌面//fileOutputTest1.txt", true)) {
             List<DataEntity> data = getDataList(10);
-
             for (DataEntity d: data) {
                 fileOutputStream.write(d.toString().getBytes());
                 fileOutputStream.write(System.lineSeparator().getBytes());
@@ -30,8 +29,7 @@ public class FileTest {
 
     @Test
     public void FileInputStreamTest() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream("D://桌面//fileOutputTest1.txt");
+        try (FileInputStream fileInputStream = new FileInputStream("D://桌面//fileOutputTest1.txt")) {
             int b;
             StringBuffer stringBuffer = new StringBuffer();
             while ((b = fileInputStream.read()) != -1) {
@@ -39,7 +37,6 @@ public class FileTest {
                 stringBuffer.append((char) b);
             }
             System.out.println(stringBuffer);
-            fileInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,8 +47,7 @@ public class FileTest {
      */
     @Test
     public void FileWriteTest() {
-        try {
-            FileWriter fileWriter = new FileWriter("D://桌面//fileOutputTest2.txt");
+        try(FileWriter fileWriter = new FileWriter("D://桌面//fileOutputTest2.txt");) {
             List<DataEntity> dataList = getDataList(5);
             for (DataEntity data :
                 dataList) {
@@ -64,7 +60,6 @@ public class FileTest {
 //                fileWriter.write(s,0,s.length());
                 fileWriter.write(System.lineSeparator());
             }
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,15 +67,13 @@ public class FileTest {
 
     @Test
     public void FileReadTest() {
-        try {
+        try(FileReader fileReader = new FileReader("D://桌面//fileOutputTest2.txt")) {
             int b;
-            FileReader fileReader = new FileReader("D://桌面//fileOutputTest2.txt");
             StringBuffer stringBuffer = new StringBuffer();
             while ((b = fileReader.read()) != -1) {
                 stringBuffer.append((char) b);
             }
             System.out.println(stringBuffer);
-            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
