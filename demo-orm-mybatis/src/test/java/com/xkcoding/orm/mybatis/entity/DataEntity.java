@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class DataEntity implements Serializable {
+public class DataEntity implements DataEntityParent,Serializable {
     private static final long serialVersionUID = 1L;
 
     private long id;

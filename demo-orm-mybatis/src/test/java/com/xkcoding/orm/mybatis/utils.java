@@ -15,11 +15,12 @@ public class utils {
             dataResultEntity.setId(i);
             dataResultEntity.setName("name" + i);
             dataResultEntity.setNow(new Date());
-            dataResultEntity.setDataEntityList(getDataList(2));
+            dataResultEntity.setDataEntity(getDataList(1).get(0));
             list.add(dataResultEntity);
         }
         return list;
     }
+
     public static List<DataEntity> getDataList(int count) {
         List<DataEntity> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {

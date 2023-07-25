@@ -14,5 +14,5 @@ public class DataResultEntity implements Serializable {
     private String name;
     private Date now;
 
-    private List<DataEntity> dataEntityList;
+    private DataEntityParent dataEntity;
 }
