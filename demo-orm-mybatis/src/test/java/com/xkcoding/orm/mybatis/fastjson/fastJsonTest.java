@@ -56,9 +56,16 @@ public class fastJsonTest {
     @Test
     public void entity2MapTest() {
         DataResultEntity dataResultEntity = getDataResultList(1).get(0);
-        String o = JSON.toJSONString(dataResultEntity);
+        String o = JSON.toJSONString(dataResultEntity, SerializerFeature.WriteNonStringValueAsString);
+        System.out.println(o);
         Map map = JSON.parseObject(o, Map.class);
         System.out.println(map);
     }
 
+    @Test
+    public void entity2MapTest2() {
+        String user = null;
+        Map<String, String> userMap = JSON.parseObject(user, Map.class);
+        System.out.println(userMap);
+    }
 }

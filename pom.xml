@@ -72,6 +72,7 @@
     <module>demo-pay</module>
     <module>demo-easy-excel</module>
     <module>demo-http-call</module>
+      <module>demo-design-patterns</module>
   </modules>
   <packaging>pom</packaging>
 
