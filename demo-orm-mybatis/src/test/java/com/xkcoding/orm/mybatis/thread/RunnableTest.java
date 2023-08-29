@@ -14,6 +14,11 @@ public class RunnableTest {
         Thread thread3 = new Thread(myRunnable, "c");
 
         thread1.start();
+        try {
+            thread1.join(); //// 等待thread1执行完才会轮到thread2，thread3抢
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         thread2.start();
         thread3.start();
     }
