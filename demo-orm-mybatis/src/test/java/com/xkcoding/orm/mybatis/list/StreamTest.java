@@ -180,8 +180,17 @@ public class StreamTest {
     @Test
     public void sortTest() {
         List<DataEntity> dataList = getDataList(10);
-        List<String> collect = dataList.stream().map(DataEntity::getName).limit(5).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-        System.out.println(collect.toString());
+        // 正序
+        List<String> collect11 = dataList.stream().map(DataEntity::getName).limit(5).sorted().collect(Collectors.toList());
+        //倒序
+        List<String> collect12 = dataList.stream().map(DataEntity::getName).limit(5).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+
+        // 正序
+        List<DataEntity> collect21 = dataList.stream().limit(5).sorted(Comparator.comparingLong(DataEntity::getId)).collect(Collectors.toList());
+        // 倒序
+        List<DataEntity> collect22 = dataList.stream().limit(5).sorted(Comparator.comparingLong(DataEntity::getId).reversed()).collect(Collectors.toList());
+        System.out.println(collect21.toString());
+        System.out.println(collect22.toString());
     }
 
     /**

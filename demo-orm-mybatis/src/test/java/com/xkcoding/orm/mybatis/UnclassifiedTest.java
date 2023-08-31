@@ -158,4 +158,11 @@ public class UnclassifiedTest {
         JSONObject jsonObject = JSON.parseObject(str);
         System.out.println(jsonObject.toString());
     }
+
+    @Test
+    public void truncateTest() {
+        String s = "中文字符串一二三四五六";
+        String truncate = StringUtils.truncate(s, 10);
+        System.out.println(truncate);
+    }
 }
