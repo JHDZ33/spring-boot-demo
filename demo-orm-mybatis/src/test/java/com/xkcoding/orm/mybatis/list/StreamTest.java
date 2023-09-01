@@ -121,7 +121,8 @@ public class StreamTest {
     @Test
     public void foreachTest() {
         List<DataEntity> dataList = getDataList(5);
-        dataList.stream().filter(dataEntity -> dataEntity.getId() <= 2).forEach(dataEntity -> System.out.println(dataEntity.getName()));
+        dataList.stream().filter(dataEntity -> dataEntity.getId() <= 2).forEach(dataEntity -> dataEntity.setName("cafe babe"));
+        System.out.println(dataList.toString());
     }
 
     /**
