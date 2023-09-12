@@ -11,6 +11,7 @@ public class DataEntity implements DataEntityParent,Serializable {
 
     private long id;
     private String name;
+    private Integer age;
     private Date now;
 
 }

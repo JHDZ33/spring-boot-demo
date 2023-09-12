@@ -93,6 +93,16 @@ public class StreamTest {
         System.out.println(collect.toString());
     }
 
+    @Test
+    public void test001() {
+        String s = "123";
+        String s1 = null;
+        String s2 = "null";
+        System.out.println(s + s1);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("123").append(s1);
+        System.out.println(stringBuilder.toString());
+    }
     /**
      * match
      * 其实就是filter的缩写版本，只返回true or false
@@ -294,6 +304,7 @@ public class StreamTest {
             DataEntity dataEntity = new DataEntity();
             dataEntity.setId(i);
             dataEntity.setName("name" + i);
+            dataEntity.setAge((int) (Math.random() * 100));
             dataEntity.setNow(new Date());
             list.add(dataEntity);
         }
