@@ -165,4 +165,55 @@ public class UnclassifiedTest {
         String truncate = StringUtils.truncate(s, 10);
         System.out.println(truncate);
     }
+
+    @Test
+    public void doubleTest() {
+        int amountInFen = 12345;
+        double amountInYuan = (double) amountInFen / 100;
+        System.out.println(amountInYuan);
+    }
+
+    @Test
+    public void eqTest() {
+    }
+
+    @Test
+    public void gtTest() {
+        double s = 0.14;
+        Long amountInFen = 14L;
+        double v = s * 100;
+        System.out.println(v);
+        System.out.println(s*100>amountInFen);
+    }
+
+    public static void main(String[] args) {
+        Object lock1 = new Object();
+        Object lock2 = new Object();
+        Thread t1 = new Thread(() -> {
+            try {
+                synchronized (lock1){
+                    Thread.sleep(1000);
+                    synchronized (lock2){
+                        System.out.println("输出t1");
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread t2 = new Thread(() -> {
+            try {
+                synchronized (lock2){
+                    Thread.sleep(1000);
+                    synchronized (lock1){
+                        System.out.println("输出t2");
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        t1.start();
+        t2.start();
+    }
 }

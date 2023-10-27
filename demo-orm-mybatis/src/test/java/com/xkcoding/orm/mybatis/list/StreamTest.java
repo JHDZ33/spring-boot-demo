@@ -1,7 +1,11 @@
 package com.xkcoding.orm.mybatis.list;
 
+import com.alibaba.fastjson.JSON;
 import com.xkcoding.orm.mybatis.entity.DataEntity;
+import com.xkcoding.orm.mybatis.entity.DataEntity2;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 import java.util.function.Function;
@@ -69,8 +73,16 @@ public class StreamTest {
         System.out.println("**2** " + collect2.toString() + "\n");
     }
 
+    @Test
+    public void mapToListTest() {
+        List<DataEntity> dataList = getDataList(100);
+        Map<Long, DataEntity> collect = dataList.stream().collect(Collectors.toMap(DataEntity::getId, Function.identity()));
+        Collection<DataEntity> values = collect.values();
+        List<DataEntity> entities = new ArrayList<>(values);
+        System.out.println(entities);
+    }
     /**
-     * filter
+     * filter 返回符合条件的值
      *
      * findAny和findFirst在少量数据串行下是一样的，返回第一个符合条件的数据，如果是并行则findAny就可能返回不同的值了
      */
@@ -95,14 +107,28 @@ public class StreamTest {
 
     @Test
     public void test001() {
-        String s = "123";
-        String s1 = null;
-        String s2 = "null";
-        System.out.println(s + s1);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("123").append(s1);
-        System.out.println(stringBuilder.toString());
+        List<DataEntity> list1 = getDataList(10);
+        DataEntity2 dataEntity2 = new DataEntity2();
+        DataEntity2 dataEntity3 = new DataEntity2();
+        for (DataEntity d : list1){
+            String name = d.getName();
+            BeanUtils.copyProperties(d,dataEntity2);
+            BeanUtils.copyProperties(d,dataEntity3);
+            dataEntity2.setName(name);
+            d.setName("11111111");
+            System.out.println(dataEntity2.toString());
+            System.out.println("***" + dataEntity3.toString());
+            System.out.println(d.toString());
+        }
     }
+
+    @Test
+    public void test002() {
+        String startTimeStr = "2023-09-30 00:00:00";
+        System.out.println(startTimeStr.substring(0,startTimeStr.indexOf(" ")));
+
+    }
+
     /**
      * match
      * 其实就是filter的缩写版本，只返回true or false

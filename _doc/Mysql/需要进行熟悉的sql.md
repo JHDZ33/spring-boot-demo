@@ -1,3 +1,5 @@
+##### 关联表删除
+
 ```sql
 -- 关联表删除
 DELETE r
@@ -8,7 +10,15 @@ WHERE
 	br.TENANT_ID = 1
 ```
 
+##### 删除指定列重复的数据
 
+```sql
+-- 删除指定列重复的数据
+DELETE n1 FROM table1 n1, table1 n2 
+WHERE n1.id > n2.id AND n1.column1 = n2.column1;
+```
+
+##### 关联表更新
 
 ```sql
 -- 关联表更新
@@ -26,6 +36,8 @@ WHERE
 
 
 
+##### 查出重复项并将其一个字段最后一位改成b
+
 ```sql
 -- 查出重复项并将其一个字段最后一位改成b
 UPDATE table t1
@@ -41,6 +53,8 @@ SET t1.name = CONCAT(LEFT(name, LENGTH(name)-1), 'b')
 
 
 
+##### 将一张表中的两个字段互换
+
 ```sql
 -- 将一张表中的两个字段互换
 UPDATE base_road_section 
@@ -53,7 +67,7 @@ LATITUDE_BAIDU = @temp;
 
 
 
-**INTERVAL(N,N1,N2,N3,..........)**
+##### INTERVAL(N,N1,N2,N3,..........)
 
 其中，N是要判断的数值，`N1,N2,N3,...`是分段的间隔。
 
@@ -88,3 +102,33 @@ SELECT interval('08:22:00', '08:30:00', '10:30:00','12:30:00', '14:30:00', '16:3
 -- 实际为0，似乎只对比小时，分和秒无效
 ```
 
+
+
+##### DATE_SUB
+
+```sql
+DATE_SUB(NOW(), INTERVAL 1 MONTH)
+```
+
+DATE_SUB()和INTERVAL来计算一个月前的日期。
+具体解释如下:
+- NOW() 获取当前的日期时间
+- DATE_SUB()是一个日期减法函数,用来计算一个日期减去一个时间间隔后的结果
+- INTERVAL 1 MONTH 表示一个时间间隔,INTERVAL后跟数字加时间单位,这里是1个月
+- 所以DATE_SUB(NOW(), INTERVAL 1 MONTH)表示:
+从当前日期时间NOW()中减去一个月的时间间隔
+也就是计算当前日期的一个月前的日期
+例如:
+现在是2023-03-05,那么语句的值结果就是:
+2023-02-05
+所以这个MySQL语句可以用来查询一个月前的记录,比如:
+
+```sql
+sql
+SELECT * 
+FROM table
+WHERE date_col > DATE_SUB(NOW(), INTERVAL 1 MONTH)
+```
+
+这可以查询日期在一个月前之后(不包括一个月前)的记录。
+总之,DATE_SUB()+INTERVAL组合可以用来进行日期时间的减法计算。
