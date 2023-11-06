@@ -10,6 +10,8 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class UnclassifiedTest {
@@ -172,6 +174,27 @@ public class UnclassifiedTest {
         double amountInYuan = (double) amountInFen / 100;
         System.out.println(amountInYuan);
     }
+    @Test
+    public void blankTest() {
+        String s0 = ""; // true
+        String s1 = null; // true
+        String s2 = " "; // true
+        String s3 = "axi"; // false
+
+        // org.apache.commons.lang3
+        System.out.println(StringUtils.isBlank(s3));
+    }
+
+    @Test
+    public void emptyTest() {
+        String s0 = ""; // true
+        String s1 = null; // true
+        String s2 = " "; // false
+        String s3 = "axi"; // false
+
+        // org.apache.commons.lang3
+        System.out.println(StringUtils.isEmpty(s1));
+    }
 
     @Test
     public void eqTest() {
@@ -186,6 +209,33 @@ public class UnclassifiedTest {
         System.out.println(s*100>amountInFen);
     }
 
+    @Test
+    public void mapTest() {
+        HashMap<Integer, Object> hashMap = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
+            hashMap.put(i,i*100);
+        }
+        for (int i:hashMap.keySet()){
+            System.out.println(i);
+        }
+        System.out.println("----------");
+        for (Object v:hashMap.values()){
+            System.out.println(v);
+        }
+    }
+    @Test
+    public void dateTest() {
+        String dateStr = new Date().toString();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = formatter.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(date);
+    }
     public static void main(String[] args) {
         Object lock1 = new Object();
         Object lock2 = new Object();
