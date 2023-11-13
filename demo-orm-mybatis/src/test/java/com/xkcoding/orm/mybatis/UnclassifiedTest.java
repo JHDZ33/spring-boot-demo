@@ -236,6 +236,20 @@ public class UnclassifiedTest {
         }
         System.out.println(date);
     }
+
+    @Test
+    public void calcTest() {
+        byte a = 127;
+        byte b = 127;
+        b += a;
+        System.out.println(b);
+    }
+
+    @Test
+    public void calcTest2() {
+        System.out.println(6+6+6+6*0);
+    }
+
     public static void main(String[] args) {
         Object lock1 = new Object();
         Object lock2 = new Object();
