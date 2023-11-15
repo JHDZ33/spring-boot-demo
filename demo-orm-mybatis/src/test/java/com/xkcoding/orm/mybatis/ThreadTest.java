@@ -14,7 +14,7 @@ public class ThreadTest {
      * Lambda表达式版
      */
     @Test
-    public void test1() {
+    public void callableTest() {
         ArrayList<Callable<String>> callables = new ArrayList<>();
         Callable callable = () -> get(1);
         callables.add(callable);
@@ -35,7 +35,7 @@ public class ThreadTest {
      * 普通匿名内部类版
      */
     @Test
-    public void test2(){
+    public void callableTest2(){
         ArrayList<Callable<String>> callables = new ArrayList<>();
         Callable callable = new Callable<String>() {
             @Override

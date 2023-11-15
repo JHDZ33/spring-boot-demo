@@ -16,13 +16,18 @@ import java.util.*;
 
 public class UnclassifiedTest {
 
+    /**
+     * 保留指定格式的数字
+     */
     @Test
     public void decimalFormatTest() {
-        BigDecimal num = new BigDecimal(100.114514);
+        double num = 10010.114514;
         // 四舍五入法取小数点后三位
         DecimalFormat df1 = new DecimalFormat("#.###");
         String s = df1.format(num);
+        double v = Double.parseDouble(s);
         System.out.println(s);
+        System.out.println(v);
         /**
          * 你还可以指定其他格式,如:
          * - ###.## - 整数部分至少 3 位,小数 2 位
@@ -31,6 +36,10 @@ public class UnclassifiedTest {
          */
         DecimalFormat df2 = new DecimalFormat("0000.000");
         System.out.println(df2.format(num));
+        DecimalFormat df3 = new DecimalFormat("000000.000000000");
+        System.out.println(df3.format(num));
+        DecimalFormat df4 = new DecimalFormat("#,###.###");
+        System.out.println(df4.format(num));
     }
 
     @Test
@@ -79,6 +88,9 @@ public class UnclassifiedTest {
         }
     }
 
+    /**
+     * lang3 清除字符串中的空白符
+     */
     @Test
     public void removeSpaceTest() {
         String s = "     a b c   d   f         e   ";
@@ -112,6 +124,9 @@ public class UnclassifiedTest {
         }
     }
 
+    /**
+     * 写入文件
+     */
     @Test
     public void fileOutStreamTest() {
         try {
@@ -137,6 +152,10 @@ public class UnclassifiedTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 读取文件
+     */
     @Test
     public void fileInStreamTest() {
         try {
@@ -161,19 +180,32 @@ public class UnclassifiedTest {
         System.out.println(jsonObject.toString());
     }
 
+    /**
+     * 切割字符串
+     */
     @Test
     public void truncateTest() {
         String s = "中文字符串一二三四五六";
-        String truncate = StringUtils.truncate(s, 10);
+        String truncate = StringUtils.truncate(s, 3);
         System.out.println(truncate);
     }
 
+    /**
+     * double格式
+     */
     @Test
     public void doubleTest() {
-        int amountInFen = 12345;
-        double amountInYuan = (double) amountInFen / 100;
+        int amountInFen = 1234568;
+        double amountInYuan = (double) amountInFen / 1000;
         System.out.println(amountInYuan);
+        DecimalFormat format = new DecimalFormat("#.##");
+        String s = format.format(amountInYuan);
+        System.out.println(s);
     }
+
+    /**
+     * 字符串判空
+     */
     @Test
     public void blankTest() {
         String s0 = ""; // true
@@ -185,6 +217,9 @@ public class UnclassifiedTest {
         System.out.println(StringUtils.isBlank(s3));
     }
 
+    /**
+     * 字符串判空
+     */
     @Test
     public void emptyTest() {
         String s0 = ""; // true
@@ -200,15 +235,28 @@ public class UnclassifiedTest {
     public void eqTest() {
     }
 
+    /**
+     * double 类型不能精确地表示所有的十进制小数，会导致精度丢失。
+     *
+     */
     @Test
     public void gtTest() {
         double s = 0.14;
         Long amountInFen = 14L;
         double v = s * 100;
         System.out.println(v);
-        System.out.println(s*100>amountInFen);
+        System.out.println(v==amountInFen);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        double parseDouble = Double.parseDouble(df.format(v));
+        System.out.println(parseDouble);
+        System.out.println(parseDouble==amountInFen);
+
     }
 
+    /**
+     * Map遍历key，遍历value
+     */
     @Test
     public void mapTest() {
         HashMap<Integer, Object> hashMap = new HashMap<>();
@@ -223,6 +271,10 @@ public class UnclassifiedTest {
             System.out.println(v);
         }
     }
+
+    /**
+     * Date转字符串后再转回Date
+     */
     @Test
     public void dateTest() {
         String dateStr = new Date().toString();
@@ -245,11 +297,25 @@ public class UnclassifiedTest {
         System.out.println(b);
     }
 
+    /**
+     * 基本数据类型数组转list
+     */
     @Test
-    public void calcTest2() {
-        System.out.println(6+6+6+6*0);
+    public void arrayTest2() {
+        int[] arr = new int[4];
+        arr[0] = 1;
+        arr[1] = 2;
+        // Arrays.stream(arr).boxed() 将一个基础类型的数组（例如 int[]）转换为一个流。
+        Integer[] integers = Arrays.stream(arr).boxed().toArray(Integer[]::new);
+        // Arrays.asList()方法实际上返回的是 Object[] 类型的列表,无法解析基本数据类型，需要实现转换成Integer[]
+        List<Integer> list = Arrays.asList(integers);
+        System.out.println(list.toString());
     }
 
+    /**
+     * 死锁
+     * @param args
+     */
     public static void main(String[] args) {
         Object lock1 = new Object();
         Object lock2 = new Object();
